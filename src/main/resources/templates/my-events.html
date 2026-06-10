@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Events | UniEvent</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/student-dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-container">
+    <aside class="sidebar" id="sidebarMenu">
+        <button class="close-sidebar-btn" onclick="document.getElementById('sidebarMenu').classList.remove('active');" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 22px; cursor: pointer; color: #4b5563; display: none;">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div>
+            <div class="sidebar-logo-section">
+                <div class="logo">
+                    <i class="fas fa-bell" style="font-size: 28px; color: #D97706;"></i>
+                    <span>EventReminder</span>
+                </div>
+            </div>
+
+            <div class="user-profile-section">
+                <div class="profile-icon-avatar">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <h3 id="profileName">Student Name</h3>
+                <p id="profileRole">Computer Science Student</p>
+                <button class="view-profile-btn" onclick="window.location.href='/profile'">
+                    <i class="fa-solid fa-user"></i> My Profile & Attended
+                </button>
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="#" class="menu-item" onclick="window.location.href='/dashboard'; return false;">
+                    <i class="fa-solid fa-border-all"></i> Dashboard
+                </a>
+                <a href="#" class="menu-item active">
+                    <i class="fa-solid fa-calendar-check"></i> My Events
+                </a>
+                <a href="/reminders" class="menu-item">
+                    <i class="fa-solid fa-bell"></i> Reminders
+                </a>
+            </nav>
+        </div>
+
+        <div class="sidebar-footer">
+            <a href="#" class="logout-btn" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="navbar">
+            <div class="left-navbar-section">
+                <div class="menu-toggle-btn" onclick="event.stopPropagation(); toggleSidebar();">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+                <div class="logo">
+                    <i class="fas fa-bell" style="font-size: 24px; color: #D97706;"></i>
+                    <span>My Events</span>
+                </div>
+            </div>
+            <div class="right-navbar-section">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchInput" placeholder="Search my events..." onkeyup="searchMyEvents()">
+                </div>
+            </div>
+        </header>
+
+        <div class="welcome-container">
+            <h2> My Registered Events</h2>
+            <p>Here are all the events you have registered for.</p>
+        </div>
+
+        <div id="myEventsContainer" class="events-grid"></div>
+    </main>
+</div>
+
+<div class="modal-overlay" id="detailsModal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); display: none; justify-content: center; align-items: center; z-index: 9999;">
+    <div class="details-modal" style="background: #ffffff; padding: 30px; border-radius: 16px; width: 90%; max-width: 550px; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.2);" onclick="event.stopPropagation();">
+
+        <button class="close-modal-btn" style="position: absolute; top: 15px; right: 15px; background: #f3f4f6; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #374151;" onclick="closeModal();">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="modal-header-tag" id="modalCollege" style="color: #D97706; font-weight: 600; margin-bottom: 10px;">COLLEGE</div>
+        <h2 class="modal-main-title" id="modalTitle" style="color: #111827; margin-bottom: 20px;">Event Title</h2>
+
+        <div class="student-info-modal" style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; background: #f9fafb; padding: 10px; border-radius: 8px;">
+            <div class="student-avatar" style="font-size: 24px; color: #4b5563;">
+                <i class="fa-solid fa-user-graduate"></i>
+            </div>
+            <div class="student-details">
+                <h4 id="modalStudentName" style="margin: 0; color: #111827;">Student Name</h4>
+                <p id="modalStudentMajor" style="margin: 0; color: #6b7280; font-size: 14px;">Loading...</p>
+            </div>
+        </div>
+
+        <div class="info-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; color: #374151;">
+            <div class="info-item"><i class="fa-solid fa-calendar"></i><div class="info-text"><p style="margin:0; font-size:12px; color:#6b7280;">Date</p><h4 id="modalDate">-</h4></div></div>
+            <div class="info-item"><i class="fa-solid fa-clock"></i><div class="info-text"><p style="margin:0; font-size:12px; color:#6b7280;">Time</p><h4 id="modalTime">-</h4></div></div>
+            <div class="info-item"><i class="fa-solid fa-location-dot"></i><div class="info-text"><p style="margin:0; font-size:12px; color:#6b7280;">Location</p><h4 id="modalLocation">-</h4></div></div>
+            <div class="info-item"><i class="fa-solid fa-users"></i><div class="info-text"><p style="margin:0; font-size:12px; color:#6b7280;">Audience</p><h4 id="modalAudience">-</h4></div></div>
+            <div class="info-item"><i class="fa-solid fa-tags"></i><div class="info-text"><p style="margin:0; font-size:12px; color:#6b7280;">Fees</p><h4 id="modalFees">-</h4></div></div>
+            <div class="info-item"><i class="fa-solid fa-user-tie"></i><div class="info-text"><p style="margin:0; font-size:12px; color:#6b7280;">Presented By</p><h4 id="modalSpeaker" style="margin:0;">-</h4></div></div>
+            <div class="info-item"><i class="fa-solid fa-award"></i><div class="info-text"><p style="margin:0; font-size:12px; color:#6b7280;">Certificate</p><h4 id="modalCertificate">-</h4></div></div>
+        </div>
+
+        <div class="modal-buttons-container" style="display: flex; gap: 12px; margin-top: 20px; width: 100%;">
+            <button class="modal-footer-btn" style="background: #10B981; color: white; border: none; flex: 1; padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;" onclick="markAsAttendedFromModal();">
+                <i class="fa-solid fa-check-circle"></i> Mark as Attended
+            </button>
+            <button id="modalUnregisterBtn" style="background: #EF4444; color: white; border: none; flex: 1; padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <i class="fa-solid fa-trash-can"></i> Unregister Event
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="/js/my-events.js"></script>
+</body>
+</html>

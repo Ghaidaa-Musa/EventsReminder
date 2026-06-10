@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Event Details</title>
+  <link rel="stylesheet" th:href="@{/css/event-details.css}">
+  
+</head>
+<body>
+
+<div class="details-container">
+  <button class="back-btn" onclick="window.history.back()">Back</button>
+
+  <div class="event-card">
+    <div class="college-tag" id="eventCollege">Loading...</div>
+    <h1 id="eventTitle">Loading...</h1>
+
+    <div class="info-grid">
+      <div class="info-item">
+        <p>Location</p>
+        <h4 id="eventLocation">-</h4>
+      </div>
+      <div class="info-item">
+        <p>Event Day & Time</p>
+        <h4 id="eventDay">-</h4>
+      </div>
+      <div class="info-item">
+        <p>Target Audience</p>
+        <h4 id="eventAudience">-</h4>
+      </div>
+      <div class="info-item">
+        <p>Fees</p>
+        <h4 id="eventFees">-</h4>
+      </div>
+    </div>
+
+    <button class="register-btn">Register in Event</button>
+  </div>
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const eventId = params.get('id');
+
+  fetch(`/api/events/${eventId}`)
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById('eventTitle').innerText = data.title;
+            document.getElementById('eventCollege').innerText = data.college;
+            document.getElementById('eventLocation').innerText = data.location;
+            document.getElementById('eventDay').innerText = data.day;
+            document.getElementById('eventAudience').innerText = data.audience;
+            document.getElementById('eventFees').innerText = data.fees;
+          })
+          .catch(err => console.error('Error fetching event:', err));
+</script>
+
+</body>
+</html>

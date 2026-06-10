@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - University Event Reminder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/register-style.css}">
+</head>
+<body>
+
+<div class="signup-container">
+    <h2 class="form-title">Sign Up</h2>
+    <p class="welcome-msg">Be a part of our university events!</p>
+
+    <form th:action="@{/register}" th:object="${user}" method="post" id="signUpForm">
+
+        <div th:if="${error}" style="color: #dc3545; margin-bottom: 15px; font-weight: 500; text-align: center;" th:text="${error}"></div>
+
+        <div class="input-group">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" th:field="*{fullName}" placeholder="Enter your full name" required>
+        </div>
+
+        <div class="input-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" th:field="*{email}" placeholder="Enter your university email" required>
+        </div>
+        <div class="input-group">
+            <label for="department">Major / Department</label>
+            <input type="text" id="department" th:field="*{department}" placeholder="e.g. Computer Science" required>
+        </div>
+
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" th:field="*{password}" placeholder="Create a strong password" required>
+        </div>
+
+        <div class="role-group">
+            <label class="role-label">I am a:</label>
+            <div class="radio-options">
+                <label class="radio-container">
+                    <input type="radio" th:field="*{role}" value="student" checked>
+                    Student
+                </label>
+                <label class="radio-container">
+                    <input type="radio" th:field="*{role}" value="admin">
+                    Admin
+                </label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Register</button>
+    </form >
+
+    <p class="switch-page">Already have an account? <a th:href="@{/login}">Log In</a></p>
+
+</div>
+
+</body>
+</html>

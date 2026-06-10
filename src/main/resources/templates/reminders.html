@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reminders | UniEvent</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/reminders.css">
+</head>
+<body>
+
+<div class="dashboard-container">
+    <aside class="sidebar" id="sidebarMenu">
+        <div>
+            <div class="sidebar-logo-section">
+                <div class="logo">
+                    <i class="fas fa-bell"></i>
+                    <span>EventReminder</span>
+                </div>
+            </div>
+
+            <div class="user-profile-section">
+                <div class="profile-icon-avatar">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <h3 th:text="${user.fullName}">Student Name</h3>
+                <p th:text="${user.department} + ' Student'">Student</p>
+                <button class="view-profile-btn" onclick="window.location.href='/profile'">
+                    <i class="fa-solid fa-user"></i> My Profile
+                </button>
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="/dashboard" class="menu-item"><i class="fa-solid fa-border-all"></i> Dashboard</a>
+                <a href="/my-events" class="menu-item"><i class="fa-solid fa-calendar-check"></i> My Events</a>
+                <a href="/reminders" class="menu-item active"><i class="fa-solid fa-bell"></i> Reminders</a>
+            </nav>
+        </div>
+
+        <div class="sidebar-footer">
+            <a href="#" class="logout-btn" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="navbar">
+            <div class="left-navbar-section">
+                <div class="menu-toggle-btn" onclick="toggleSidebar()">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+                <div class="logo">
+                    <i class="fas fa-bell"></i>
+                    <span>Reminders</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="welcome-container">
+            <h2><i class="fa-solid fa-bell"></i> Upcoming Reminders</h2>
+            <p>Events happening in the next 7 days.</p>
+        </div>
+
+        <div id="remindersContainer" class="alerts-list"></div>
+    </main>
+</div>
+
+<script src="/js/reminders.js"></script>
+</body>
+</html>

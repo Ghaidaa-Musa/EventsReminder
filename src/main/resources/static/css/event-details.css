@@ -1,0 +1,7 @@
+body { font-family: 'Poppins', sans-serif; background-color: #f9f9f9; padding: 40px; }
+.details-container { max-width: 600px; margin: 0 auto; }
+.event-card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+.college-tag { color: #D97706; font-weight: 600; font-size: 0.9rem; margin-bottom: 10px; }
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+.register-btn { width: 100%; padding: 15px; background-color: #D97706; color: white; border: none; border-radius: 10px; cursor: pointer; margin-top: 20px; }
+.back-btn { margin-bottom: 20px; cursor: pointer; }

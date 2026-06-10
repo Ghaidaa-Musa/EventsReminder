@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In - University Event Reminder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/login-style.css}">
+</head>
+<body>
+
+<div class="login-container">
+    <h2 class="form-title">Log In</h2>
+    <p class="welcome-msg">Welcome back! Please enter your details</p>
+
+    <form th:action="@{/login}" method="post" id="loginForm">
+
+        <div th:if="${error}" style="color: #dc3545; margin-bottom: 15px; font-weight: 500; text-align: center;" th:text="${error}"></div>
+
+        <div class="input-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        </div>
+
+        <div class="form-options">
+            <label class="remember-me">
+                <input type="checkbox"> Remember me
+            </label>
+            <a href="#" class="forgot-pass">Forgot Password?</a>
+        </div>
+
+        <button type="submit" class="btn-submit">Log In</button>
+    </form>
+
+    <p class="switch-page">Don't have an account? <a th:href="@{/register}">Sign Up</a></p>
+</div>
+
+</body>
+</html>

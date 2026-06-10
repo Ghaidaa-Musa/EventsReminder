@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | UniEvent</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/admin-dashboard.css}">
+</head>
+<body>
+
+<div class="dashboard-container">
+    <aside class="sidebar" id="sidebarMenu">
+        <div class="sidebar-logo-section">
+            <div class="logo">
+                <i class="fas fa-bell" style="font-size: 28px; color: #D97706;"></i>
+                <span>EventReminder</span>
+            </div>
+        </div>
+
+        <div class="user-profile-section">
+            <div class="profile-icon-avatar">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <h3 th:text="${adminName}" id="adminName">Admin Name</h3>
+            <p id="adminRole">Administrator</p>
+        </div>
+
+        <div class="sidebar-menu">
+            <a href="#" class="menu-item active">
+                <i class="fas fa-calendar-alt"></i> <span>Manage Events</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-users"></i> <span>Manage Users</span>
+            </a>
+        </div>
+
+        <a href="#" class="logout-btn" onclick="logout(); return false;">
+            <i class="fas fa-sign-out-alt"></i> <span>Log Out</span>
+        </a>
+    </aside>
+
+    <main class="main-content">
+        <div class="navbar">
+            <div class="left-navbar-section">
+                <div class="menu-toggle-btn" onclick="document.getElementById('sidebarMenu').classList.toggle('active')">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <div class="logo">
+                    <i class="fas fa-bell" style="font-size: 24px; color: #D97706;"></i>
+                    <span>EventReminder Admin</span>
+                </div>
+            </div>
+            <div class="right-navbar-section">
+                <div class="datetime">
+                    <i class="fas fa-temperature-high"></i>
+                    <span id="temp">29°</span>
+                    <span id="time">12:29 AM</span>
+                    <span id="date">9/6/2026</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="welcome-container">
+            <h2>Welcome back, <span th:text="${adminName}" id="adminWelcomeName">Admin</span>! 👋</h2>
+            <p>Manage university events, add new activities, and track student registrations.</p>
+        </div>
+
+        <div class="section-header">
+            <h3 class="section-title"><i class="fas fa-calendar-plus"></i> Event Management</h3>
+            <button class="add-event-btn" onclick="openAddModal()">
+                <i class="fas fa-plus"></i> Add New Event
+            </button>
+        </div>
+
+        <div id="adminEventsContainer" class="events-grid"></div>
+    </main>
+</div>
+
+<div id="eventModal" class="modal-overlay">
+    <div class="details-modal" style="max-width: 600px; position: relative;">
+        <button class="close-modal-btn" onclick="closeModal()">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-header-tag">
+            <i class="fas fa-plus-circle"></i> <span id="modalTitle">Add New Event</span>
+        </div>
+        <h3 class="modal-main-title">Create University Event</h3>
+
+        <form id="eventForm">
+            <input type="hidden" id="eventId">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="title" placeholder="Event title" required>
+                </div>
+                <div class="form-group">
+                    <label>College / Organizer</label>
+                    <input type="text" id="college" placeholder="College name" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="eventDate" required>
+                </div>
+                <div class="form-group">
+                    <label>Time</label>
+                    <input type="time" id="eventTime" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" id="location" placeholder="Location / Venue" required>
+                </div>
+                <div class="form-group">
+                    <label>Target Audience</label>
+                    <input type="text" id="targetAudience" placeholder="e.g., All Students" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Fees</label>
+                    <input type="text" id="fees" placeholder="Free / Amount" required>
+                </div>
+                <div class="form-group">
+                    <label>Presented By</label>
+                    <input type="text" id="presentedBy" placeholder="Speaker / Committee" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Certificate Provided?</label>
+                    <select id="certificate">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>In-Person / Online</label>
+                    <div style="display: flex; gap: 15px; margin-top: 10px;">
+                        <label><input type="radio" name="attendanceType" value="In-Person" checked onclick="toggleVenue(true)"> In-Person</label>
+                        <label><input type="radio" name="attendanceType" value="Online" onclick="toggleVenue(false)"> Online</label>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="modal-footer-btn">
+                <i class="fas fa-save"></i> Save Event
+            </button>
+        </form>
+    </div>
+</div>
+
+<div id="eventDetailsModal" class="modal-overlay">
+    <div class="details-modal" style="position: relative;">
+
+        <button class="close-modal-btn" onclick="document.getElementById('eventDetailsModal').classList.remove('active')">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-header-tag" id="detailCollege">COLLEGE</div>
+        <h3 class="modal-main-title" id="detailTitle">Event Title</h3>
+
+        <div class="info-grid">
+            <div class="info-item"><i class="fas fa-calendar"></i><div class="info-text"><p>Date</p><h4 id="detailDate">-</h4></div></div>
+            <div class="info-item"><i class="fas fa-clock"></i><div class="info-text"><p>Time</p><h4 id="detailTime">-</h4></div></div>
+            <div class="info-item"><i class="fas fa-location-dot"></i><div class="info-text"><p>Location</p><h4 id="detailLocation">-</h4></div></div>
+            <div class="info-item"><i class="fas fa-users"></i><div class="info-text"><p>Audience</p><h4 id="detailAudience">-</h4></div></div>
+        </div>
+
+        <div class="registered-students">
+            <h4><i class="fas fa-user-graduate"></i> Registered Students (<span id="studentCount">0</span>)</h4>
+            <div id="registeredStudentsList" class="students-list">No students registered yet.</div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/admin-dashboard.js}"></script>
+</body>
+</html>

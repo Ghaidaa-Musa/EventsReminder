@@ -1,0 +1,513 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #FFFDF7 0%, #FEE2E2 40%, #FEF3C7 70%, #FBBF24 100%);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+    color: #3F3F46;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.dashboard-container {
+    display: flex;
+    width: 100%;
+    position: relative;
+}
+
+/* Sidebar - نفس تصميم الطالب */
+.sidebar {
+    position: fixed;
+    left: -280px;
+    top: 0;
+    height: 100vh;
+    width: 280px;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(25px);
+    border-right: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 1000;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar-logo-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo i {
+    font-size: 28px;
+    color: #D97706;
+}
+
+.logo span {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #D97706;
+}
+
+.user-profile-section {
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    padding: 20px 15px;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.profile-icon-avatar {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    border: 3px solid #D97706;
+    margin: 0 auto 12px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-icon-avatar i {
+    font-size: 2.2rem;
+    color: #D97706;
+}
+
+.user-profile-section h3 {
+    font-size: 1rem;
+    color: #18181B;
+    font-weight: 700;
+}
+
+.user-profile-section p {
+    font-size: 0.75rem;
+    color: #71717A;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 18px;
+    color: #52525B;
+    text-decoration: none;
+    border-radius: 14px;
+    transition: all 0.3s;
+}
+
+.menu-item:hover, .menu-item.active {
+    background: rgba(217, 119, 6, 0.12);
+    color: #D97706;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 18px;
+    color: #EF4444;
+    text-decoration: none;
+    border-radius: 14px;
+}
+
+.logout-btn:hover {
+    background: rgba(239, 68, 68, 0.1);
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 30px;
+    width: 100%;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(15px);
+    border-radius: 24px;
+    margin-bottom: 25px;
+}
+
+.left-navbar-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.menu-toggle-btn {
+    background: rgba(255, 255, 255, 0.5);
+    width: 45px;
+    height: 45px;
+    border-radius: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: #D97706;
+}
+
+.datetime {
+    display: flex;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.datetime i {
+    color: #D97706;
+}
+
+/* Welcome Section */
+.welcome-container {
+    margin-bottom: 30px;
+}
+
+.welcome-container h2 {
+    font-size: 1.4rem;
+    color: #18181B;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.welcome-container p {
+    font-size: 0.9rem;
+    color: #52525B;
+}
+
+/* Section Header */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.section-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #18181B;
+}
+
+.add-event-btn {
+    background: #D97706;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+}
+
+.add-event-btn:hover {
+    background: #b45309;
+    transform: scale(1.02);
+}
+
+/* Events Grid - Cards */
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+.event-card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 20px;
+    transition: all 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.event-college {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #D97706;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.event-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #18181B;
+    margin-bottom: 10px;
+}
+
+.event-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #52525B;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.event-actions {
+    display: flex;
+    gap: 10px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.event-actions button {
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.7rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.details-btn {
+    background: #3B82F6;
+    color: white;
+}
+
+.edit-btn {
+    background: #FBBF24;
+    color: #18181B;
+}
+
+.delete-btn {
+    background: #EF4444;
+    color: white;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.details-modal {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 32px;
+    padding: 30px;
+    max-width: 650px;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.1);
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.modal-header-tag {
+    color: #D97706;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.modal-main-title {
+    font-size: 1.5rem;
+    color: #18181B;
+    margin-bottom: 20px;
+}
+
+/* Form */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #52525B;
+}
+
+.form-group input, .form-group select {
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.modal-footer-btn {
+    background: #D97706;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    border-radius: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Info Grid for details */
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.info-item i {
+    width: 38px;
+    height: 38px;
+    background: rgba(217, 119, 6, 0.1);
+    color: #D97706;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-text p {
+    font-size: 0.7rem;
+    color: #71717A;
+}
+
+.info-text h4 {
+    font-size: 0.85rem;
+    color: #18181B;
+}
+
+/* Registered Students */
+.registered-students {
+    background: rgba(217, 119, 6, 0.05);
+    border-radius: 16px;
+    padding: 15px;
+    margin: 15px 0;
+}
+
+.registered-students h4 {
+    margin-bottom: 10px;
+    color: #D97706;
+}
+
+.students-list {
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+.student-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    font-size: 0.8rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 260px;
+    }
+    .main-content {
+        padding: 15px;
+    }
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}

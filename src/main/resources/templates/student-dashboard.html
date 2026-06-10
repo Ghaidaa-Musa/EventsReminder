@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - University Event Reminder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/student-dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-container">
+    <aside class="sidebar" id="sidebarMenu">
+        <div>
+            <div class="sidebar-logo-section">
+                <div class="logo">
+                    <i class="fas fa-bell" style="font-size: 28px; color: #D97706;"></i>
+                    <span>EventReminder</span>
+                </div>
+            </div>
+
+            <div class="user-profile-section">
+                <div class="profile-icon-avatar">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <h3 id="profileName">Student Name</h3>
+                <p id="profileRole">Computer Science Student</p>
+                <button class="view-profile-btn" onclick="window.location.href='/profile'">
+                    <i class="fa-solid fa-user"></i> My Profile & Attended
+                </button>
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="#" class="menu-item active" onclick="showDashboard(); return false;">
+                    <i class="fa-solid fa-border-all"></i> Dashboard
+                </a>
+                <a href="#" class="menu-item" onclick="window.location.href='/my-events'; return false;">
+                    <i class="fa-solid fa-calendar-check"></i> My Events
+                </a>
+                <a href="/reminders" class="menu-item">
+                    <i class="fa-solid fa-bell"></i> Reminders
+                </a>
+
+            </nav>
+        </div>
+
+        <div class="sidebar-footer">
+            <a href="#" class="logout-btn" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="navbar">
+            <div class="left-navbar-section">
+                <div class="menu-toggle-btn" onclick="toggleSidebar()">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+                <div class="logo">
+                    <i class="fas fa-bell" style="font-size: 24px; color: #D97706;"></i>
+                    <span>EventReminder</span>
+                </div>
+            </div>
+            <div class="right-navbar-section">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchInput" placeholder="Search events..." onkeyup="searchEvents()">
+                </div>
+            </div>
+        </header>
+
+        <div class="welcome-container">
+            <h2 id="welcomeGreeting">Welcome back, Student!</h2>
+            <p>Welcome to EventReminder! Stay updated with university events, workshops, competitions, and campus activities through one centralized platform.</p>
+        </div>
+
+        <h2 class="section-title">Available University Events</h2>
+        <div id="eventsContainer" class="events-grid"></div>
+    </main>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="detailsModal">
+    <div class="details-modal">
+        <button class="close-modal-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-header-tag" id="modalCollege">COLLEGE NAME</div>
+        <h2 class="modal-main-title" id="modalTitle">Event Title</h2>
+        <div class="info-grid">
+            <div class="info-item">
+                <i class="fa-solid fa-calendar"></i>
+                <div class="info-text"><p>Date</p><h4 id="modalDate">-</h4></div>
+            </div>
+            <div class="info-item">
+                <i class="fa-solid fa-clock"></i>
+                <div class="info-text"><p>Time</p><h4 id="modalTime">-</h4></div>
+            </div>
+            <div class="info-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <div class="info-text"><p>Location</p><h4 id="modalLocation">-</h4></div>
+            </div>
+            <div class="info-item">
+                <i class="fa-solid fa-users"></i>
+                <div class="info-text"><p>Audience</p><h4 id="modalAudience">-</h4></div>
+            </div>
+            <div class="info-item">
+                <i class="fa-solid fa-tags"></i>
+                <div class="info-text"><p>Fees</p><h4 id="modalFees">-</h4></div>
+            </div>
+            <div class="info-item">
+                <i class="fa-solid fa-user-tie"></i>
+                <div class="info-text"><p>Presented By</p><h4 id="modalSpeaker">-</h4></div>
+            </div>
+            <div class="info-item">
+                <i class="fa-solid fa-award"></i>
+                <div class="info-text"><p>Certificate</p><h4 id="modalCertificate">-</h4></div>
+            </div>
+        </div>
+        <button class="modal-footer-btn" onclick="registerForEvent()">Register in Event</button>
+    </div>
+</div>
+
+<script src="/js/student-dashboard.js"></script>
+</body>
+</html>
