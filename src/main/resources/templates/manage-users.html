@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users | UniEvent Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/manage-users.css}">
+</head>
+<body>
+
+<div class="dashboard-container">
+    <aside class="sidebar" id="sidebarMenu">
+        <div class="sidebar-logo-section">
+            <div class="logo">
+                <i class="fas fa-bell"></i>
+                <span>EventReminder</span>
+            </div>
+        </div>
+        <div class="user-profile-section">
+            <div class="profile-icon-avatar"><i class="fa-solid fa-user-shield"></i></div>
+            <h3 th:text="${adminName}">Admin</h3>
+            <p>Administrator</p>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="/admin-dashboard" class="menu-item"><i class="fas fa-calendar-alt"></i> Manage Events</a>
+            <a href="/manage-users" class="menu-item active"><i class="fas fa-users"></i> Manage Users</a>
+        </nav>
+        <a href="#" class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+    </aside>
+
+    <main class="main-content">
+        <header class="navbar">
+            <div class="left-navbar-section">
+                <div class="menu-toggle-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></div>
+                <div class="logo"><i class="fas fa-users"></i> <span>Manage Users</span></div>
+            </div>
+            <div class="right-navbar-section">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search by name or email...">
+                </div>
+            </div>
+        </header>
+
+        <!-- Statistics Cards -->
+        <div class="stats-cards">
+            <div class="stat-card"><i class="fas fa-users"></i><div class="stat-number" id="totalUsers">0</div><div class="stat-label">Total Users</div></div>
+            <div class="stat-card"><i class="fas fa-user-graduate"></i><div class="stat-number" id="totalStudents">0</div><div class="stat-label">Students</div></div>
+            <div class="stat-card"><i class="fas fa-user-shield"></i><div class="stat-number" id="totalAdmins">0</div><div class="stat-label">Admins</div></div>
+            <div class="stat-card"><i class="fas fa-calendar-week"></i><div class="stat-number" id="newUsers">0</div><div class="stat-label">New This Week</div></div>
+        </div>
+
+        <div id="eventsContainer" class="events-grid"></div>
+    </main>
+</div>
+
+<!-- Modal for User Details -->
+<div id="userDetailsModal" class="modal-overlay">
+    <div class="details-modal" style="max-width: 500px;">
+        <button class="close-modal-btn" onclick="closeUserDetailsModal()"><i class="fas fa-times"></i></button>
+        <div class="modal-header-tag">User Details</div>
+        <div id="userDetailsContent"></div>
+        <div class="modal-actions" style="display: flex; gap: 10px; margin-top: 20px;">
+            <button class="modal-footer-btn" id="editRoleFromModalBtn" style="background: #3B82F6;">Edit Role</button>
+            <button class="modal-footer-btn" id="deleteUserFromModalBtn" style="background: #EF4444;">Delete User</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Edit Role -->
+<div id="editRoleModal" class="modal-overlay">
+    <div class="details-modal" style="max-width: 400px;">
+        <button class="close-modal-btn" onclick="closeEditRoleModal()"><i class="fas fa-times"></i></button>
+        <h3>Edit User Role</h3>
+        <p id="editUserName">User Name</p>
+        <select id="editRoleSelect">
+            <option value="student">Student</option>
+            <option value="admin">Admin</option>
+        </select>
+        <button class="modal-footer-btn" onclick="updateUserRole()">Save Changes</button>
+    </div>
+</div>
+
+<script src="/js/manage-users.js"></script>
+</body>
+</html>
